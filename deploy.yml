@@ -6,11 +6,15 @@
     ansible_sudo_pass: admin
   gather_facts: yes
   pre_tasks:
-    - name: install epel-release
+    - name: install requirement
       yum:
-        name: epel-release
+        name: '{{ item }}'
         state: present
       when: ansible_distribution == 'CentOS'
+      with_items: 
+        - epel-release
+        - wget
+        - git
     - name: install pip
       yum:
         name: python-pip
@@ -20,10 +24,15 @@
       pip:
         name: docker-py
   tasks:
+    - name: copy the index file
+      template:
+        src: index.html.j2
+        dest: /home/admin/index.html
     - name: start a container
       docker_container:
         name: myapplication
         image: httpd
         ports:
           - "80:80"
-     
+        volumes:
+          - /home/admin/index.html:/usr/local/apache2/htdocs/index.html            
