@@ -1,10 +1,10 @@
 ---
-- name: install of httpd
+- name: testing ansible training
   hosts: prod
-  become: yes
-  vars:
-    ansible_sudo_pass: admin
+  vars_files:
+    - files/secrets/credentials.yml
   gather_facts: yes
+  become: yes
   pre_tasks:
     - name: install requirement
       yum:
