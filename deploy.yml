@@ -1,0 +1,25 @@
+---
+- name: install of httpd
+  hosts: prod
+  become: yes
+  vars:
+    ansible_sudo_pass: admin
+  gather_facts: yes
+  pre_tasks:
+    - name: install pip
+      yum:
+        name: epel-release
+        state: present
+      when: ansible_distribution == 'CentOS'
+    - name: install pip
+      yum:
+        name: python-pip
+        state: present
+        update_cache: s:
+    - name: start a container
+      docker_container:
+        name: myapplication
+        image: httpd
+        ports:
+          - "80:80"
+     
