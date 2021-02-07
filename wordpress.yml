@@ -1,0 +1,16 @@
+---
+- name: testing ansible training
+  hosts: prod
+  become: true
+  vars_files:
+    - files/secrets/credentials.yml
+  vars:
+    system_user: ubuntu  
+  pre_tasks:
+    - name: Install requirements
+      user: 
+        name: "www-data"
+        state: present
+  roles: 
+    - { role: opendaylight }
+
