@@ -5,12 +5,12 @@
   vars_files:
     - files/secrets/credentials.yml
   vars:
-    system_user: ubuntu  
+    system_user: admin  
   pre_tasks:
     - name: Install requirements
       user: 
         name: "www-data"
         state: present
   roles: 
-    - { role: opendaylight }
+    - { role: ansible-role-containerized-wordpress }
 
