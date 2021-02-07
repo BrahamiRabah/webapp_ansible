@@ -1,5 +1,5 @@
 ---
 
-- name: opendaylight
+- name: wordpress role from github
   src: https://github.com/diranetafen/ansible-role-containerized-wordpress.git
 
